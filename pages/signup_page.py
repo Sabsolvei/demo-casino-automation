@@ -86,3 +86,11 @@ class SignupPage:
 
     def get_create_account_button(self):
         return self.driver.find_element(*locator.CREATE_ACCOUNT_BUTTON)
+
+#GET VALIDATIONS/ERRORS
+
+    def get_existing_email_validation(self):
+        return self.driver.find_element(*locator.EXISTING_EMAIL_INPUT_VALIDATION)
+
+    def get_unchecked_agree_terms_validation(self):
+        return self.driver.find_element(*locator.UNCHECKED_AGREE_TERMS_VALIDATION)

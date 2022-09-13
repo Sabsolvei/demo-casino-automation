@@ -36,3 +36,7 @@ class SignupPageLocator(object):
     GENDER_OPTION = [By.XPATH, "//label[text()='Gender']/following-sibling::div/div//ul/li[contains(text(),'%s')]"]
     NICKNAME_INPUT = (By.XPATH, "//label[text()='Nickname']/following-sibling::div/input")
     CREATE_ACCOUNT_BUTTON = (By.XPATH, "//button/span[text()='Create account']")
+
+#VALIDATION LOCATORS
+    EXISTING_EMAIL_INPUT_VALIDATION = (By.XPATH, "//label[text()='Email']/following-sibling::div/div")
+    UNCHECKED_AGREE_TERMS_VALIDATION = (By.XPATH, "//label[contains(text(),'agree with')]/following-sibling::div")

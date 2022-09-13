@@ -1,3 +1,5 @@
+from selenium.common import TimeoutException
+
 from page_locators.signup_page_locator import SignupPageLocator as locator
 from pages.signup_page import SignupPage
 from steps.base_step_wait import BaseStepWait
@@ -112,3 +114,22 @@ class SignupStep(BaseStepWait):
     def click_create_account_button(self):
         button = self.signup_page.get_create_account_button()
         button.click()
+
+    def get_existing_email_validation_text(self):
+        try:
+            self.wait_for_element_to_be_visible_locator(locator.EXISTING_EMAIL_INPUT_VALIDATION)
+            error_e = self.signup_page.get_existing_email_validation()
+            text = error_e.text
+            return text.lower()
+        except TimeoutException:
+            return ''
+
+    def get_unchecked_agree_terms_validation_text(self):
+        try:
+            self.wait_for_element_to_be_visible_locator(locator.UNCHECKED_AGREE_TERMS_VALIDATION)
+            error_e = self.signup_page.get_unchecked_agree_terms_validation()
+            text = error_e.text
+            return text.lower()
+        except TimeoutException:
+            return ''
+
