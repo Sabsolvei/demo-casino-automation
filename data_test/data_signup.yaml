@@ -1,0 +1,18 @@
+test_register_new_user_succesfuly:
+  email: "sabrinaveiga@hotmail.com"
+  currency: 'EUR'
+  password: "Demo_test_123"
+  reenter_password: "Demo_test_123"
+  question: "The street your grew up on"
+  answer: "Olavarria"
+  login: "sabri"
+  bonus: "No bonus"
+  address: "Suarez 123"
+  country: "Argentina"
+  city: "Buenos Aires"
+  postalcode: "1159"
+  name: "Sabrina"
+  lastname: "Veiga"
+  middlename: "Soledad"
+  gender: "Female"
+  nickname: "Sabri"

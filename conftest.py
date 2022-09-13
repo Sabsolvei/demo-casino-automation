@@ -60,7 +60,7 @@ def pytest_generate_tests(metafunc):
 
 
 def pytest_addoption(parser):
-    parser.addoption("-B", "--browser", dest="browser", action="store", default="all",
+    parser.addoption("-B", "--browser", dest="browser", action="store", default="chrome",
                      choices=['chrome', 'firefox', 'edge', 'all'])
     parser.addoption("--env", dest="env", action="store", default="test")
 
