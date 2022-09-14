@@ -38,7 +38,7 @@ def browser(pytestconfig):
 
 
 @pytest.fixture
-def ambiente(pytestconfig):
+def environment(pytestconfig):
     return pytestconfig.getoption("env", default="test").lower()
 
 
@@ -52,7 +52,7 @@ def env(request, config_location):
 
 @allure.step('Get in the website')
 @pytest.fixture
-def driver(request, browser, env, ambiente):
+def driver(request, browser, env, environment):
     '''
     “Yield” fixtures yield instead of return. Thus, we can run some code and pass an object back to the requesting
     fixture/test, and any teardown code for that fixture is placed after the yield.
@@ -60,7 +60,7 @@ def driver(request, browser, env, ambiente):
     global _driver
     _driver = get_driver(browser)
     _driver.implicitly_wait(30)
-    _driver.get(env[ambiente]['url'])
+    _driver.get(env[environment]['url'])
     _driver.maximize_window()
     if request.cls is not None:
         request.cls.driver = _driver

@@ -58,7 +58,7 @@ pytest --alluredir=reports
 
 2. Run specific suite test
 ```commandline
-pytest -v --alluredir=reports home_tests.py
+pytest -v --alluredir=reports home_test.py
 ```
 
 3. Run specific testing type  
@@ -72,9 +72,9 @@ pytest -v -m "not regression"
 ---
 ### Reports review
 Adding --alluredir option to commandline enable Allure to store results in the provided path.  
-**To see the actual report execute from the commandline:**
+**To see current report, execute from commandline:**
 ```commandline
 allure serve ./reports
 ```
-This command will show you generated report in your default browser.  
+This command will show you generated reports in your default browser.  
 `localhost:port`

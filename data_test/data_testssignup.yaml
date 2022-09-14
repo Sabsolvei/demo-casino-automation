@@ -1,3 +1,27 @@
+test_register_new_user_successfully:
+  data:
+    email: "sabrinaveiga@hotmail.com"
+    currency: 'EUR'
+    password: "Demo_test_123"
+    reenter_password: "Demo_test_123"
+    question: "The street your grew up on"
+    answer: "Olavarria"
+    login: "sabri"
+    bonus: "No bonus"
+    address: "Suarez 123"
+    country: "Argentina"
+    city: "Buenos Aires"
+    postalcode: "1159"
+    name: "Sabrina"
+    lastname: "Veiga"
+    middlename: "Soledad"
+    gender: "Female"
+    nickname: "Sabri"
+  expected_result:
+    current_url: "https://demo.casino/user/confirm/email"
+    title: "You must confirm your email"
+    description: "Confirmation has been sent to your email address. It is necessary to confirm the email in order to complete the registration process."
+
 test_register_existing_user_validation:
   data:
     email: "sabrinaveiga@hotmail.com"

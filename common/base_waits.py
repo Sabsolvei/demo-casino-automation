@@ -12,3 +12,6 @@ class BaseWait:
 
     def wait_for_element_to_be_visible_locator(self, locator, timeout=10):
         self.wait_for(EC.visibility_of_element_located(locator), timeout)
+
+    def wait_for_element_to_be_visible(self, element, timeout=10):
+        self.wait_for(EC.visibility_of(element), timeout)

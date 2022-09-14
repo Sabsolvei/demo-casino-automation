@@ -1,5 +1,3 @@
-import copy
-
 import allure
 
 from page_locators.home_page_locator import HomePageLocator as locator
