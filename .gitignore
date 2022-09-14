@@ -2,3 +2,5 @@ venv/
 .pytest_cache/
 geckodriver.log
 tests/reports/*
+.idea/
+__pycache__/
