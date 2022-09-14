@@ -11,3 +11,10 @@ class HomePage:
 
     def get_gotit_button(self):
         return self.driver.find_element(*locator.GOTIT_BUTTON)
+
+    def get_theme_switcher_toggle(self):
+        return self.driver.find_element(*locator.THEME_SWITCHER_TOGGLE)
+
+    def get_theme_class(self):
+        return self.driver.find_element(*locator.THEME_CLASS)
+

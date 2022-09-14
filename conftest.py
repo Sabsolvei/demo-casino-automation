@@ -20,17 +20,16 @@ from selenium.webdriver.edge.options import Options as EdgeOptions
 
 from utilities.file_utils import FileUtils
 
+BROWSERS = ["chrome", "edge", "firefox"]
+_driver = None
 
+
+@pytest.fixture
 def config_location():
     if "VIRTUAL_ENV" in os.environ:
         return f"{os.getenv('VIRTUAL_ENV')}/.."
     else:
         return os.getcwd()
-
-
-BROWSERS = ["chrome", "edge", "firefox"]
-ENVIRONMENT_PATH = f"{config_location()}/environment.yaml"
-_driver = None
 
 
 @pytest.fixture
@@ -44,37 +43,14 @@ def ambiente(pytestconfig):
 
 
 @pytest.fixture
-def env(request):
-    _env = FileUtils.get_yaml_data(ENVIRONMENT_PATH)
+def env(request, config_location):
+    _env = FileUtils.get_yaml_data(f"{config_location}/environment.yaml")
     if request.cls is not None:
         request.cls.env = _env
     return _env
 
 
-def pytest_generate_tests(metafunc):
-    if "browser" in metafunc.fixturenames:
-        if metafunc.config.getoption("--browser") == "all":
-            metafunc.parametrize("browser", BROWSERS)
-        else:
-            metafunc.parametrize("browser", metafunc.config.getoption("--browser").split(","))
-
-
-def pytest_addoption(parser):
-    parser.addoption("-B", "--browser", dest="browser", action="store", default="chrome",
-                     choices=['chrome', 'firefox', 'edge', 'all'])
-    parser.addoption("--env", dest="env", action="store", default="test")
-
-
-def pytest_exception_interact(node, report):
-    try:
-        if node.funcargs['driver'] is not None and report.failed:
-            _driver.execute_script("document.body.bgColor = 'white';")
-            allure.attach(_driver.get_screenshot_as_png(), name=node.name, attachment_type=AttachmentType.PNG)
-    except Exception as e:
-        warnings.warn(f"No se pudo adjuntar la imagen. Error: {e}")
-
-
-@allure.step('Enter the site')
+@allure.step('Get in the website')
 @pytest.fixture
 def driver(request, browser, env, ambiente):
     '''
@@ -111,7 +87,7 @@ def driver_broker(browser):
     }[browser]
 
 
-@allure.step(f'Search compatible {browser} driver')
+@allure.step
 def get_driver(browser):
     """
     Returns a previously configured driver. Browser Service installs the driver, updated to the latest version
@@ -127,3 +103,26 @@ def get_driver(browser):
         return web_driver
     except RuntimeError as e:
         raise RuntimeError(f"{browser}: Tipo de browser no conocido", e)
+
+
+def pytest_generate_tests(metafunc):
+    if "browser" in metafunc.fixturenames:
+        if metafunc.config.getoption("--browser") == "all":
+            metafunc.parametrize("browser", BROWSERS)
+        else:
+            metafunc.parametrize("browser", metafunc.config.getoption("--browser").split(","))
+
+
+def pytest_addoption(parser):
+    parser.addoption("-B", "--browser", dest="browser", action="store", default="chrome",
+                     choices=['chrome', 'firefox', 'edge', 'all'])
+    parser.addoption("--env", dest="env", action="store", default="test")
+
+
+def pytest_exception_interact(node, report):
+    try:
+        if node.funcargs['driver'] is not None and report.failed:
+            _driver.execute_script("document.body.bgColor = 'white';")
+            allure.attach(_driver.get_screenshot_as_png(), name=node.name, attachment_type=AttachmentType.PNG)
+    except Exception as e:
+        warnings.warn(f"No se pudo adjuntar la imagen. Error: {e}")

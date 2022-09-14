@@ -4,9 +4,9 @@ from utilities.file_utils import FileUtils
 
 
 @pytest.fixture
-def data_test(request):
-    test_filename = request.config.args[0].split('::')[0].split('.')[0]
-    return FileUtils.get_yaml_data(f"../data_test/data_{test_filename}.yaml")
+def data_test(request, config_location):
+    test_filename = request.cls.__name__.lower()
+    return FileUtils.get_yaml_data(f"{config_location}/data_test/data_{test_filename}.yaml")
 
 @pytest.fixture
 def name_test(request):

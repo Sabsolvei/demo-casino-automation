@@ -2,6 +2,7 @@ import pytest
 
 from steps.home_step import HomeStep
 from steps.signup_step import SignupStep
+from utilities.file_utils import FileUtils
 
 
 @pytest.mark.usefixtures("driver", "class_setup")
@@ -12,12 +13,15 @@ class TestsSignup:
         self.home_step = HomeStep(self.driver)
         self.signup_step = SignupStep(self.driver)
 
+    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_register_existing_user_validation(self, dataset, expected_result):
-        self.home_step.click_button_gotit()
-        self.home_step.click_button_signup()
+        random_name = FileUtils.get_timestamp()
+        self.home_step.click_gotit_button()
+        self.home_step.click_signup_button()
         self.signup_step.click_email_button()
         self.signup_step.check_agree_checkbox()
-        self.signup_step.set_email(email=dataset['email'])
+        self.signup_step.set_email(email=f"{dataset['email']}")
         self.signup_step.select_currency(currency=dataset['currency'])
         self.signup_step.set_password(password=dataset['password'])
         self.signup_step.set_reenter_password(password=dataset['reenter_password'])
@@ -38,9 +42,11 @@ class TestsSignup:
         actual = self.signup_step.get_existing_email_validation_text()
         assert actual == expected_result['existing_email'].lower()
 
+    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_unchecked_agree_terms_validation(self, dataset, expected_result):
-        self.home_step.click_button_gotit()
-        self.home_step.click_button_signup()
+        self.home_step.click_gotit_button()
+        self.home_step.click_signup_button()
         self.signup_step.click_email_button()
         self.signup_step.set_email(email=dataset['email'])
         self.signup_step.select_currency(currency=dataset['currency'])

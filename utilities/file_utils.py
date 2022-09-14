@@ -1,3 +1,5 @@
+import time
+
 import yaml
 
 
@@ -8,3 +10,7 @@ class FileUtils:
         with open(file_path, "r", encoding='utf-8') as f:
             file = yaml.load(f, Loader=yaml.FullLoader)
         return file
+
+    @staticmethod
+    def get_timestamp():
+        return time.time()

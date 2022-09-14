@@ -4,9 +4,9 @@
 <hr/>
     <p> 
         Project to automate User Registration and an additional feature of the DEMO.CASINO website. 
-        This covers the most relevant test cases of each feature. 
+        This covers just a few test cases of each feature as sample. 
         The frameworks used are Selenium+Python, Pytest, which allows flexible setting of the tests, and Allure to 
-        provide a detailed report or executions results.
+        provide a detailed report of executions results.
     </p>
 </div>
 <hr/>
@@ -42,27 +42,39 @@ pip3.10 install -r requirements.txt
 
 `selenium_pytest_demo/tests` directory contains all test suites.  
 
-Several tests are marked as **smoke**, **sanity**  and **regression**. This allows you to choose which type of testing to perform
 
 **Main Command lines:**
 
+>**Custom commandline options**  
+> -B / --browser : ['chrome', 'firefox', 'edge', 'all']  
+> -m : ['smoke', 'regression'] 
+> 
+> *-h : help for more options*
+
 1. Run all tests
 ```commandline
-pytest -v
+pytest --alluredir=reports
 ```  
 
 2. Run specific suite test
 ```commandline
-pytest -v home_tests.py
+pytest -v --alluredir=reports home_tests.py
 ```
 
-3. Run specific testing type
+3. Run specific testing type  
 ```commandline
 pytest -v -m "smoke"
 ```
 ```commandline
 pytest -v -m "not regression"
 ```
+
+---
+### Reports review
+Adding --alluredir option to commandline enable Allure to store results in the provided path.  
+**To see the actual report execute from the commandline:**
 ```commandline
-pytest -v -m "not regression" home_tests.py
+allure serve ./reports
 ```
+This command will show you generated report in your default browser.  
+`localhost:port`
