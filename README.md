@@ -41,7 +41,7 @@ pip3.10 install -r requirements.txt
 ### Tests Execution
 
 `selenium_pytest_demo/tests` directory contains all test suites.  
-
+Execute the following command lines from this directory
 
 **Main Command lines:**
 
